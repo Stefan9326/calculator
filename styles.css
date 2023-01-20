@@ -1,7 +1,7 @@
 body {
     height: 100vh;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     flex-direction: column;
 }
@@ -26,7 +26,6 @@ body {
     width: 100%;
     height: 15%;
     margin-bottom: 40px;
-    /* border: 1px solid #000; */
     box-shadow: 0 0 10px 0 rgba(178, 201, 118, 0.751);
     font-size: 2em;
     text-align: right;
@@ -56,4 +55,8 @@ button {
     /* border-radius: 100%; */
     border-radius: 10px;
     font-size: 20px;
+}
+
+.operator {
+    font-size: 22px;
 }
