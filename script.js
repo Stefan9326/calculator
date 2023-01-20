@@ -9,12 +9,15 @@ const equalsButton = document.querySelector('#equals');
 const clearButton = document.querySelector('#clearButton');
 
 numberButtons.forEach(button => button.addEventListener('click', () => {
-  currentDisplay.textContent += button.textContent;
+  if (currentDisplay.textContent.length < 21) {
+    currentDisplay.textContent += button.textContent;
+  }
 }));
 
 operatorButtons.forEach(button => button.addEventListener('click', () => {
   firstOperand = currentDisplay.textContent;
   currentDisplay.textContent = '';
+
   switch (button.textContent) {
     case '+':
       currentOperator = add;
