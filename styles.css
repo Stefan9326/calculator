@@ -27,9 +27,21 @@ body {
 }
 
 #calculator-buttons {
+    font-size: 40px;
     width: 80%;
     height: 70%;
     display: flex;
-    /* flex-wrap: wrap; */
+    flex-wrap: wrap;
+    /* border: 1px solid #000; */
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+button {
+    width: 60px;
+    height: 60px;
     border: 1px solid #000;
+    background-color: #fff;
+    cursor: pointer;
 }
