@@ -1,5 +1,4 @@
 // Issues:
-// - Show error message when product of an operation is too long.
 // - Fix equals button functionality so that it only performs an operation when there are two operands and an operator.
 // - Add decimal point functionality.
 // - Add backspace functionality.
@@ -22,6 +21,7 @@ let currentDisplay = document.querySelector('#calculator-display');
 let currentOperator = null;
 let firstOperand = null;
 let secondOperand = null;
+let equalsClicks = 0;
 
 const numberButtons = document.querySelectorAll('.number');
 const operatorButtons = document.querySelectorAll('.operator');
@@ -35,6 +35,7 @@ numberButtons.forEach(button => button.addEventListener('click', () => {
 }));
 
 operatorButtons.forEach(button => button.addEventListener('click', () => {
+  equalsClicks = 0;
   firstOperand = currentDisplay.textContent;
   currentDisplay.textContent = '';
 
@@ -62,8 +63,14 @@ clearButton.addEventListener('click', () => {
 });
 
 equalsButton.addEventListener('click', () => {
-  secondOperand = currentDisplay.textContent;
-  currentDisplay.textContent = operate(currentOperator, +firstOperand, +secondOperand);
+  ++equalsClicks;
+  if (equalsClicks === 1) {
+    secondOperand = currentDisplay.textContent;
+    currentDisplay.textContent = operate(currentOperator, +firstOperand, +secondOperand);
+  } else if (equalsClicks > 1) {
+    firstOperand = currentDisplay.textContent;
+    currentDisplay.textContent = operate(currentOperator, +firstOperand, +secondOperand);
+  }
 });
 
 function add(a, b) {
