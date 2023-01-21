@@ -37,6 +37,14 @@ body {
     background-color: rgba(195, 214, 148, 0.751);
 }
 
+#equals, .operator {
+    background-color: rgb(162, 68, 68);
+}
+
+#clearButton {
+    background-color: rgb(218, 182, 62);
+}
+
 .row {
     display: flex;
     width: 100%;
