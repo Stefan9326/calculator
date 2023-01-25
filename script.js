@@ -97,14 +97,12 @@ function divide(a, b) {
 
 function operate(operator, a, b) {
   let result = operator(a, b);
-   if (result.length > 21) {
-    if (result.includes('.')) {
-      let decimalIndex = result.indexOf('.');
-      result = parseFloat(result).toFixed(20 - decimalIndex)
+  if (result.includes('e')) {
+    if (Number(result.includes('.'))) {
+      result = Number(result).toFixed(19).toString();
+      return result
     }
-      return 'ERROR: Result too long';
+    return 'ERROR: Result out of range';
   }
   return result;
 }
-
-
