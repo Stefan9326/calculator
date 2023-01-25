@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@600;700&display=swap');
 
 body {
-    height: 100vh;
+    max-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,12 +14,12 @@ h1 {
     font-weight: 700;
     font-size: 42px;
     color:  rgba(3, 3, 67, 0.836);
-    margin: 0 0 50px 0;
+    margin: 0 0 26px 0;
 }
 
 #calculator-body {
     width: 350px;
-    height: 500px;
+    height: 560px;
     /* border: 2px solid #000; */
     box-shadow: 0 0 10px 0 rgb(0, 0, 0);
     display: flex;
