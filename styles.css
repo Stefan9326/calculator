@@ -37,14 +37,6 @@ body {
     background-color: rgba(195, 214, 148, 0.751);
 }
 
-#equals, .operator {
-    background-color: rgb(162, 68, 68);
-}
-
-#clearButton {
-    background-color: rgb(218, 182, 62);
-}
-
 .row {
     display: flex;
     width: 100%;
@@ -53,18 +45,45 @@ body {
 }
 
 button {
-    flex: 1;
+    width: 80px;
     height: 60px;
     border: none;
     background-color: rgba(255, 255, 255, 0.562);
     cursor: pointer;
-    box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.362);
+    box-shadow: 0 3px rgba(237, 237, 244, 0.362);
     /* Make buttons circular */
     /* border-radius: 100%; */
     border-radius: 10px;
     font-size: 20px;
 }
 
+button:hover {
+    background-color: rgb(129, 129, 160)
+}
+
+button:active, #clearButton:active, #equals:active, .operator:active {
+    transform: translateY(3px);
+    box-shadow: none;
+}
+
+#clearButton {
+    background-color: rgb(231, 199, 93);
+    box-shadow: 0 3px rgb(189, 152, 27);
+}
+
+#clearButton:hover {
+    background-color: rgb(219, 182, 62);
+}
+
+#equals, .operator {
+    background-color: rgb(194, 94, 94);
+    box-shadow: 0 3px rgb(186, 72, 72);
+}
+
 .operator {
     font-size: 22px;
+}
+
+.operator:hover, #equals:hover {
+    background-color: rgb(182, 57, 57);
 }
