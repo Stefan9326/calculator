@@ -19,6 +19,7 @@ let equalsClicks = 0;
 const backspaceButton = document.querySelector('#backspace');
 const clearButton = document.querySelector('#clearButton');
 const numberButtons = document.querySelectorAll('.number');
+const decimalButton = document.querySelector('#decimal');
 const operatorButtons = document.querySelectorAll('.operator');
 const equalsButton = document.querySelector('#equals');
 
@@ -36,8 +37,10 @@ clearButton.addEventListener('click', () => {
 });
 
 numberButtons.forEach(button => button.addEventListener('click', () => {
-  if (currentDisplay.textContent.length < 21) {
+  if (currentDisplay.textContent.length < 21 && button.textContent != '.') {
     currentDisplay.textContent += button.textContent;
+  } else if (!currentDisplay.textContent.includes('.')) {
+    currentDisplay.textContent += '.';
   }
 }));
 
