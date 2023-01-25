@@ -1,5 +1,4 @@
 // Issues:
-// - Round long decimal numbers so they don't overflow the display.
 // - Keep firstOperand on display when user clicks on an operator button until they click on a number button.
 // - Allow user to chain operations. For example, 5 + 5 + 5 should equal 15. When the user clicks on the second operator button, the first operation
 //   should be performed and the result should be displayed and used as the first operand for the second operation.
@@ -36,13 +35,15 @@ clearButton.addEventListener('click', () => {
 
 numberButtons.forEach(button => button.addEventListener('click', () => {
   if (currentDisplay.textContent.length < 21) {
-    if (button.textContent == '.' && !currentDisplay.textContent.includes('.')) {
-      currentDisplay.textContent += '.';
-    } else {
       currentDisplay.textContent += button.textContent;
     } 
-  }
 }));
+
+decimalButton.addEventListener('click', () => {
+  if (!(currentDisplay.textContent.includes('.'))) {
+    currentDisplay.textContent += '.';
+  }
+})
 
 operatorButtons.forEach(button => button.addEventListener('click', () => {
   equalsClicks = 0;
@@ -67,7 +68,7 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
 
 equalsButton.addEventListener('click', () => {
   ++equalsClicks;
-  if (equalsClicks === 1) {
+  if (equalsClicks == 1) {
     secondOperand = currentDisplay.textContent;
     currentDisplay.textContent = operate(currentOperator, +firstOperand, +secondOperand);
   } else if (equalsClicks > 1) {
