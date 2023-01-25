@@ -1,6 +1,4 @@
 // Issues:
-// - Add decimal point functionality.
-// - Show error message when user tries to add a decimal point to a number that already has one.
 // - Round long decimal numbers so they don't overflow the display.
 // - Keep firstOperand on display when user clicks on an operator button until they click on a number button.
 // - Allow user to chain operations. For example, 5 + 5 + 5 should equal 15. When the user clicks on the second operator button, the first operation
@@ -37,10 +35,12 @@ clearButton.addEventListener('click', () => {
 });
 
 numberButtons.forEach(button => button.addEventListener('click', () => {
-  if (currentDisplay.textContent.length < 21 && button.textContent != '.') {
-    currentDisplay.textContent += button.textContent;
-  } else if (!currentDisplay.textContent.includes('.')) {
-    currentDisplay.textContent += '.';
+  if (currentDisplay.textContent.length < 21) {
+    if (button.textContent == '.' && !currentDisplay.textContent.includes('.')) {
+      currentDisplay.textContent += '.';
+    } else {
+      currentDisplay.textContent += button.textContent;
+    } 
   }
 }));
 
@@ -96,10 +96,15 @@ function divide(a, b) {
 }
 
 function operate(operator, a, b) {
-   if (operator(a, b).length > 21) {
-     return 'ERROR: Result too long';
-   }
-  return operator(a, b);
+  let result = operator(a, b);
+   if (result.length > 21) {
+    if (result.includes('.')) {
+      let decimalIndex = result.indexOf('.');
+      result = parseFloat(result).toFixed(20 - decimalIndex)
+    }
+      return 'ERROR: Result too long';
+  }
+  return result;
 }
 
 
