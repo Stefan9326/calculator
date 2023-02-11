@@ -11,7 +11,8 @@ let currentDisplay = document.querySelector('#calculator-display');
 let currentOperator = null;
 let firstOperand = null;
 let secondOperand = null;
-let equalsClicks = 0;
+let operatorClicks = 0;
+let numberClicks = 0;
 
 const backspaceButton = document.querySelector('#backspace');
 const clearButton = document.querySelector('#clearButton');
@@ -29,14 +30,21 @@ backspaceButton.addEventListener('click', () => {
 clearButton.addEventListener('click', () => {
   currentDisplay.textContent = '';
   currentOperator = null;
+  operatorClicks = 0;
+  numberClicks = 0;
   firstOperand = null;
   secondOperand = null;
 });
 
 numberButtons.forEach(button => button.addEventListener('click', () => {
+  if (numberClicks === 0) {
+    currentDisplay.textContent = '';
+  }
   if (currentDisplay.textContent.length < 21) {
       currentDisplay.textContent += button.textContent;
-    } 
+  }
+  ++numberClicks;
+
 }));
 
 decimalButton.addEventListener('click', () => {
@@ -46,10 +54,8 @@ decimalButton.addEventListener('click', () => {
 })
 
 operatorButtons.forEach(button => button.addEventListener('click', () => {
-  equalsClicks = 0;
-  firstOperand = currentDisplay.textContent;
-  currentDisplay.textContent = '';
-
+  numberClicks = 0;
+  ++operatorClicks;
   switch (button.id) {
     case 'add':
       currentOperator = add;
@@ -64,17 +70,18 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
       currentOperator = divide;
       break;
   }
+  if (operatorClicks > 1) {
+    secondOperand = currentDisplay.textContent;
+    // The problem is here. So close. I need to stop the first operation from using the newly clicked operator.
+    currentDisplay.textContent = operate(currentOperator, +firstOperand, +secondOperand);
+  }
+  firstOperand = currentDisplay.textContent;
 }));
 
 equalsButton.addEventListener('click', () => {
-  ++equalsClicks;
-  if (equalsClicks == 1) {
-    secondOperand = currentDisplay.textContent;
-    currentDisplay.textContent = operate(currentOperator, +firstOperand, +secondOperand);
-  } else if (equalsClicks > 1) {
-    firstOperand = currentDisplay.textContent;
-    currentDisplay.textContent = operate(currentOperator, +firstOperand, +secondOperand);
-  }
+  operatorClicks = 0;
+  secondOperand = currentDisplay.textContent;
+  currentDisplay.textContent = operate(currentOperator, +firstOperand, +secondOperand);
 });
 
 function add(a, b) {
@@ -99,7 +106,7 @@ function divide(a, b) {
 function operate(operator, a, b) {
   let result = operator(a, b);
   if (result.includes('e')) {
-    if (Number(result.includes('.'))) {
+    if (Number(result.includes('.') && result.includes('-'))) {
       result = Number(result).toFixed(19).toString();
       return result
     }
