@@ -9,6 +9,8 @@
 
 let currentDisplay = document.querySelector('#calculator-display');
 let currentOperator = null;
+let firstOperator = null;
+let secondOperator = null;
 let firstOperand = null;
 let secondOperand = null;
 let operatorClicks = 0;
@@ -48,7 +50,7 @@ numberButtons.forEach(button => button.addEventListener('click', () => {
 }));
 
 decimalButton.addEventListener('click', () => {
-  if (!(currentDisplay.textContent.includes('.'))) {
+  if (!(currentDisplay.textContent.includes('.')) && currentDisplay.textContent.length > 0) {
     currentDisplay.textContent += '.';
   }
 })
@@ -56,8 +58,9 @@ decimalButton.addEventListener('click', () => {
 operatorButtons.forEach(button => button.addEventListener('click', () => {
   numberClicks = 0;
   ++operatorClicks;
-  switch (button.id) {
-    case 'add':
+
+    switch (button.id) {
+      case 'add':
       currentOperator = add;
       break;
     case 'subtract':
@@ -69,11 +72,17 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
     case 'divide':
       currentOperator = divide;
       break;
+    }
+
+  if (operatorClicks === 1) {
+    firstOperator = currentOperator;
+    firstOperand = currentDisplay.textContent;
   }
   if (operatorClicks > 1) {
+    secondOperator = currentOperator;
     secondOperand = currentDisplay.textContent;
-    // The problem is here. So close. I need to stop the first operation from using the newly clicked operator.
-    currentDisplay.textContent = operate(currentOperator, +firstOperand, +secondOperand);
+    currentDisplay.textContent = operate(firstOperator, +firstOperand, +secondOperand);
+    firstOperator = secondOperator;
   }
   firstOperand = currentDisplay.textContent;
 }));
