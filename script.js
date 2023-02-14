@@ -1,11 +1,5 @@
 // Issues:
-// - Keep firstOperand on display when user clicks on an operator button until they click on a number button.
-// - Allow user to chain operations. For example, 5 + 5 + 5 should equal 15. When the user clicks on the second operator button, the first operation
-//   should be performed and the result should be displayed and used as the first operand for the second operation.
 // - Add keyboard support?
-
-
-
 
 let currentDisplay = document.querySelector('#calculator-display');
 let currentOperator = null;
@@ -15,6 +9,7 @@ let firstOperand = null;
 let secondOperand = null;
 let operatorClicks = 0;
 let numberClicks = 0;
+let equalsClicks = 0;
 
 const backspaceButton = document.querySelector('#backspace');
 const clearButton = document.querySelector('#clearButton');
@@ -85,12 +80,16 @@ operatorButtons.forEach(button => button.addEventListener('click', () => {
     firstOperator = secondOperator;
   }
   firstOperand = currentDisplay.textContent;
+  equalsClicks = 0;
 }));
 
 equalsButton.addEventListener('click', () => {
   operatorClicks = 0;
-  secondOperand = currentDisplay.textContent;
-  currentDisplay.textContent = operate(currentOperator, +firstOperand, +secondOperand);
+  if (equalsClicks === 0) {
+    secondOperand = currentDisplay.textContent;
+    currentDisplay.textContent = operate(currentOperator, +firstOperand, +secondOperand);
+  }
+  ++equalsClicks;
 });
 
 function add(a, b) {
